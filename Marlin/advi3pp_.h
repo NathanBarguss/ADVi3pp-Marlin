@@ -417,6 +417,7 @@ private:
     void check_and_fix();
     void send_status_data(bool force_update = false);
     void send_gplv3_7b_notice(); // Forks: you have to keep this notice
+    void send_gplv3_7b_r1_notice(); // Add additional contrib 
     void send_sponsors();
     void send_versions();
     void read_lcd_serial();

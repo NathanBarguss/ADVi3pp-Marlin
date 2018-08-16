@@ -489,8 +489,13 @@
 //#define USE_XMAX_PLUG
 //#define USE_YMAX_PLUG
 #ifdef ADVi3PP_BLTOUCH
-// Used by BLTouch probe
-#define USE_ZMAX_PLUG
+  // Used by BLTouch probe
+  #define USE_ZMAX_PLUG
+#endif
+
+#ifdef ADVi3PP_PPIEZO
+  // Used by BLTouch probe
+  #define USE_ZMAX_PLUG
 #endif
 
 // coarse Endstop Settings
@@ -628,6 +633,11 @@
  */
 //#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
 
+#ifdef ADVi3PP_PPIEZO
+  // TODO: Not sure if need this or other?
+  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#endif
+
 /**
  * Z_MIN_PROBE_ENDSTOP
  *
@@ -648,8 +658,13 @@
  *
  */
 #ifdef ADVi3PP_BLTOUCH
-// BLTouch probe uses Z-Max endstop
-#define Z_MIN_PROBE_ENDSTOP
+  // BLTouch probe uses Z-Max endstop
+  #define Z_MIN_PROBE_ENDSTOP
+#endif
+
+#ifdef ADVi3PP_PPIEZO
+  // BLTouch probe uses Z-Max endstop
+  //#define Z_MIN_PROBE_ENDSTOP
 #endif
 
 /**
@@ -686,6 +701,11 @@
 #define BLTOUCH
 #endif
 
+#ifdef ADVi3PP_PPIEZO
+  #define FIX_MOUNTED_PROBE
+  #define DELAY_BEFORE_PROBING 200 
+#endif
+ 
 #if ENABLED(BLTOUCH)
   #define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
 #endif
@@ -731,9 +751,16 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER -29   // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -40   // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -1.54 // Z offset: -below +above  [the nozzle]
+#ifdef ADVi3PP_PPIEZO
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 0   // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0   // Y offset: -front +behind [the nozzle]
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -0.5 // Z offset: -below +above  [the nozzle]
+#else
+  #define X_PROBE_OFFSET_FROM_EXTRUDER -29   // X offset: -left  +right  [of the nozzle]
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER -40   // Y offset: -front +behind [the nozzle]
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -1.54 // Z offset: -below +above  [the nozzle]
+#endif
+
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -742,7 +769,13 @@
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 
 // Speed for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 8)
+#ifdef ADVi3PP_PPIEZO
+  // Needs to be quick-ish, as we need the 'bump' on the bed.
+  #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 1)
+#else
+  #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 8)
+#endif
+
 
 // The number of probes to perform at each point.
 //   Set to 2 for a fast/slow probe, using the second probe result.
@@ -772,8 +805,13 @@
 
 // Enable the M48 repeatability test to test probe accuracy
 #ifdef ADVi3PP_BLTOUCH
-#define Z_MIN_PROBE_REPEATABILITY_TEST
+  #define Z_MIN_PROBE_REPEATABILITY_TEST
 #endif
+#ifdef ADVi3PP_PPIEZO
+  #define Z_MIN_PROBE_REPEATABILITY_TEST
+#endif
+
+
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{ 0:'Low', 1:'High' }
@@ -925,6 +963,10 @@
 #define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
+#endif
+
+#ifdef ADVi3PP_PPIEZO
+  #define AUTO_BED_LEVELING_BILINEAR
 #endif
 
 /**
@@ -1095,7 +1137,9 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (4*60)
+//TODO:
+//#define HOMING_FEEDRATE_Z  (4*60)
+#define HOMING_FEEDRATE_Z  (8*60)
 
 // @section calibrate
 

@@ -40,6 +40,13 @@
 #pragma message "This is a BLTouch build"
 #endif
 
+// TODO: Change this in build?
+#define ADVi3PP_PPIEZO
+
+#ifdef ADVi3PP_PPIEZO
+#pragma message "This is a Precision Piezo build"
+#endif
+
 namespace
 {
     const uint16_t advi3_pp_version = 0x302;
@@ -203,6 +210,11 @@ void Printer_::show_boot_page()
 void Printer_::send_gplv3_7b_notice()
 {
     Log::log() << F("Based on ADVi3++, Copyright (C) 2017 Sebastien Andrivet") << Log::endl();
+}
+
+void Printer_::send_gplv3_7b_r1_notice()
+{
+    Log::log() << F("Additional support for Precosion Piezo, Copyright (C) 2018 Nathan Barguss") << Log::endl();
 }
 
 void Printer_::send_sponsors()
@@ -470,7 +482,12 @@ void Printer_::init()
     Log::log() << F("This is a BLTouch build") << Log::endl();
 #endif
 
+#ifdef ADVi3PP_PPIEZO
+    Log::log() << F("This is a Precision Piezo build") << Log::endl();
+#endif
+
     send_gplv3_7b_notice(); // You are not authorized to remove or alter this notice
+    send_gplv3_7b_r1_notice(); // As above
     send_sponsors();
 
     get_advi3pp_lcd_version();

@@ -35,9 +35,13 @@
 #else
 
   #ifdef ADVi3PP_BLTOUCH
-  #define ADVi3PP_NAME "ADVi3++BLTouch"
+    #define ADVi3PP_NAME "ADVi3++BLTouch"
   #else
-  #define ADVi3PP_NAME "ADVi3++"
+    #ifdef ADVi3PP_PPIEZO
+      #define ADVi3PP_NAME "ADVi3++PPiezo"
+    #else
+      #define ADVi3PP_NAME "ADVi3++"
+    #endif
   #endif
 
   /**
@@ -56,7 +60,7 @@
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "2018-06-10 12:00"
+  #define STRING_DISTRIBUTION_DATE "2018-xx-xx 00:00"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
@@ -78,7 +82,7 @@
   /**
    * Defines a generic printer name to be output to the LCD after booting Marlin.
    */
-  #define MACHINE_NAME "Wanhao Duplicator i3 Plus"
+  #define MACHINE_NAME "Duplicator i3 Plus Plus Piezo!"
 
   /**
    * The SOURCE_CODE_URL is the location where users will find the Marlin Source
