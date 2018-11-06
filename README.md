@@ -1,5 +1,9 @@
 # ADVi3++ a Custom Marlin Firmware for Wanhao i3 Plus Printers
 
+## WARNING - This is a feature branch, to allow z homing by using the BLTouch.
+
+This branch is a work in progress, and currently DOES NOT FUNCTION. Use of this branch may cause dammage to your printer. Here Be Dragons. You have been warned!
+
 ![](https://github.com/andrivet/ADVi3pp-User-Manual/raw/master/assets/Boot-and-Screens.gif)
 
 ## Introduction
